@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="759dc32e-32e3-4a85-a3ad-bec68f335203" name="Default Changelist" comment="" />
+    <list default="true" id="759dc32e-32e3-4a85-a3ad-bec68f335203" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignor" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/production.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/production.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/client" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1o3F5p8gZ6Jmq2z5of21HVb5rdZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -50,7 +55,7 @@
       <workItem from="1612684502716" duration="7273000" />
       <workItem from="1612728944699" duration="2794000" />
       <workItem from="1612767090116" duration="14646000" />
-      <workItem from="1612855647160" duration="19897000" />
+      <workItem from="1612855647160" duration="20335000" />
     </task>
     <servers />
   </component>
