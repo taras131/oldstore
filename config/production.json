@@ -1,6 +1,6 @@
 {
-  "port": 5000,
+  "port": 80,
   "jwtSecret": "hahasecret",
   "mongoURL": "mongodb+srv://palich:r4581sha1984@cluster0.3j3bg.mongodb.net/<dbname>?retryWrites=true&w=majority",
-  "baseURL":  "http://localhost:5000"
+  "baseURL":  "http://junkshops.ru"
 }

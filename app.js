@@ -1,13 +1,13 @@
-const express = require(`express`)
-const config = require(`config`)
-const mongoose = require(`mongoose`)
-const path = require(`patch`)
+const express = require('express')
+const config = require('config')
+const path = require('path')
+const mongoose = require('mongoose')
 
 const app = express()
 app.use(express.json({extended: true}))
 app.use("/api/auth", require("./routes/auth.routes"))
 app.use("/api/catalog", require("./routes/catalog.routes"))
-if(process.env.NODE_ENV === `production`){
+if(process.env.MODE_ENV === `production`){
     app.use(`/`, express.static(path.join(__dirname, `client`, `build`)))
     app.get(`*`, (req,res)=>{
 res.sendFile(path.resolve(__dirname,`client`, `build`, index.html))
@@ -23,7 +23,6 @@ const start = async() => {
             useCreateIndex: true
         }
     } catch(e) {
-    console.log(`server error`, e.message)
         process.exit(1)
     }
 }
