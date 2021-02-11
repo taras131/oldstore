@@ -1,10 +1,25 @@
 import React, {useState, useEffect, useContext} from "react"
-import {useLocation,useHistory} from "react-router"
+import {useLocation, useHistory} from "react-router"
 import {useHttp} from "../../hooks/http.hook";
 import {useMessage} from "../../hooks/message.hook";
 import {AuthContext} from "../../context/AuthContext";
+import {Button, Grid, Paper, TextField} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        flexGrow: 5,
+        padding: theme.spacing(8),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+}));
 const Auth = () => {
+    const classes = useStyles();
     const auth = useContext(AuthContext)
     const message = useMessage()
     const history = useHistory()
@@ -38,9 +53,7 @@ const Auth = () => {
     const onExitClick = () => {
         auth.logOut()
     }
-    useEffect(()=>{
-        window.M.updateTextFields()
-    },[])
+
     useEffect(() => {
         message(error)
         clearError()
@@ -53,83 +66,87 @@ const Auth = () => {
         )
     }
     return (
-        <div className="row" style={{marginTop: 150}}>
-            <div className="col s6 offset-s3">
-                <div className="card blue darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">{parameter ? "Авторизация" : "Регистрация" }</span>
-                        <div>
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите email"
-                                    id="email"
-                                    type="text"
-                                    name="email"
-                                    className="yellow-input"
-                                    value={form.email}
-                                    onChange={onChangeForms}/>
-                                <label htmlFor="email">Email</label>
-                            </div>
-                            {!parameter &&
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите Ваше имя"
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    className="yellow-input"
-                                    value={form.name}
-                                    onChange={onChangeForms}/>
-                                <label htmlFor="email">Name</label>
-                            </div>}
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите пароль"
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    className="yellow-input"
-                                    value={form.password}
-                                    onChange={onChangeForms}/>
-                                <label htmlFor="email">Password</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-action">
-                        {auth.isAuth
-                            ?
-                            <button
-                                onClick={onExitClick}
-                                className="btn green darken-4"
-                                style={{marginRight: 10}}
-                                disabled={isLoading}
-                            >
-                                Выйти
-                            </button>
-                            : <>
-                                {parameter
-                                    ?     <button
-                                        onClick={onLoginClick}
-                                        className="btn green darken-4"
-                                        style={{marginRight: 10}}
-                                        disabled={isLoading}
-                                    >
-                                        Войти
-                                    </button>
-                                    : <button
-                                        onClick={onRegisterClick}
-                                        className="btn red darken-4"
-                                        disabled={isLoading}
-                                    >
-                                        Регестрация
-                                    </button> }
+        <div className={classes.root}>
+            <Paper className={classes.paper}>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    spacing={3}
+                >
+                    <Grid item xs={12} md={10} xl={8}>
+                        <Typography align="center" variant="h4" color="primary">
+                            {parameter === `login`
+                                ? "Вход"
+                                : "Регистрация"}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10} xl={8}>
+                        <TextField
+                            error
+                            id="email"
+                            name="email"
+                            label="Email"
+                            value={form.email}
+                            onChange={onChangeForms}
+                            helperText="Incorrect entry."
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    {parameter === `login`
+                        ? ``
+                        : <Grid item xs={12} md={10} xl={8}>
+                            <TextField
+                                error
+                                id="name"
+                                name="name"
+                                label="Name"
+                                value={form.name}
+                                onChange={onChangeForms}
+                                helperText="Incorrect entry."
+                                variant="outlined"
+                                fullWidth
+                            />
+                        </Grid>}
 
-
-                            </>}
-                    </div>
-                </div>
-            </div>
+                    <Grid item xs={12} md={10} xl={12}>
+                        <TextField
+                            error
+                            id="password"
+                            name="password"
+                            label="Password"
+                            value={form.password}
+                            onChange={onChangeForms}
+                            helperText="Incorrect entry."
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={10} xl={12}>
+                        {parameter === `login`
+                            ? <Button disabled={isLoading}
+                                      onClick={onLoginClick}
+                                      size="large"
+                                      variant="contained"
+                                      color="primary">
+                                Войти
+                            </Button>
+                            :
+                            <Button disabled={isLoading}
+                                    onClick={onRegisterClick}
+                                    size="large"
+                                    variant="contained"
+                                    color="primary">
+                                Отправить
+                            </Button>}
+                    </Grid>
+                </Grid>
+            </Paper>
         </div>
+
+
     )
 }
 

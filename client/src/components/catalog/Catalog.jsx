@@ -1,32 +1,33 @@
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
-import {NavLink} from "react-router-dom";
+import {Link as RouterLink, NavLink} from "react-router-dom";
 import {useParams} from "react-router";
 import {useHttp} from "../../hooks/http.hook";
-import {useState, useEffect,useCallback} from "react";
+import {useState, useEffect, useCallback} from "react";
 import {CatalogItem} from "./CatalogItem";
 import {Preloader} from "../common/Preloader";
-
+import {Button, Grid} from "@material-ui/core";
 
 const Catalog = () => {
     const auth = useContext(AuthContext)
     const {isLoading, error, request, clearError} = useHttp()
     const [catalogAdList, setCatalogAdList] = useState([])
     let id = useParams().id
-    const getCatalogAd = useCallback( async () => {
+    const getCatalogAd = async () => {
         try {
-            if(id) {
+            if (id) {
                 const data = await request(`/api/catalog/${id}`, `GET`)
                 setCatalogAdList(data)
-            } else{
+            } else {
                 const data = await request(`/api/catalog/`, `GET`)
                 setCatalogAdList(data)
             }
-        } catch (e) {}
-    },[id])
+        } catch (e) {
+        }
+    }
     useEffect(() => {
         getCatalogAd()
-    }, [getCatalogAd])
+    }, [id])
     const catalogAdItems = catalogAdList.map((item, index) => <CatalogItem key={`${item.date}_${index}`}
                                                                            {...item}/>)
     if (isLoading) {
@@ -34,14 +35,14 @@ const Catalog = () => {
     }
     return (
         <div className="container">
-            <div className="row">
-                <h2> {id ? "Мои объявления" : "Каталог"}</h2>
+            <h2> {id ? "Мои объявления" : "Каталог"}</h2>
+            <Grid container spacing={3}>
                 {catalogAdItems}
-            </div>
+            </Grid>
             {auth.isAuth &&
-            <NavLink to="/createnewad">
-                <button className="waves-effect waves-light btn-large">Добавить</button>
-            </NavLink>}
+            <Button component={RouterLink} to="/createnewad" variant="contained" color="primary" size="large">
+                Добавить
+            </Button>}
         </div>
     )
 }
