@@ -18,6 +18,7 @@ export const useAuth = () => {
         setUserId(null)
         localStorage.removeItem(storageName)
     }, [])
+
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storageName))
         if(data && data.token){

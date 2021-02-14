@@ -6,6 +6,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import {useAuth} from "../../hooks/auth.hook";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
 const Auth = () => {
     const classes = useStyles();
     const auth = useContext(AuthContext)
-    const message = useMessage()
     const history = useHistory()
     let parameter = useLocation().pathname.split("/").pop()
     const {isLoading, error, request, clearError} = useHttp()
+    const {addMessage} = useMessage()
     const [form, setForm] = useState({
         email: ``,
         name: ``,
@@ -36,15 +37,17 @@ const Auth = () => {
     const onRegisterClick = async () => {
         try {
             const data = await request(`/api/auth/register`, `POST`, {...form})
-            message(data.message)
-            history.push(`/:login`)
+            console.log(data.message)
+            addMessage(data.message)
+            history.push(`/login`)
         } catch (e) {
         }
     }
     const onLoginClick = async () => {
         try {
             const data = await request(`/api/auth/login`, `POST`, {...form})
-            message(data.message)
+            addMessage(data.message)
+            console.log(data.message)
             auth.logIn(data.token, data.userId)
         } catch (e) {
             console.log(e)
@@ -55,9 +58,9 @@ const Auth = () => {
     }
 
     useEffect(() => {
-        message(error)
+        addMessage(error)
         clearError()
-    }, [error, message, clearError])
+    }, [error,addMessage , clearError])
     if (isLoading) {
         return (
             <div>

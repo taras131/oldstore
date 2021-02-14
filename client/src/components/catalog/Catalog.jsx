@@ -6,7 +6,7 @@ import {useHttp} from "../../hooks/http.hook";
 import {useState, useEffect, useCallback} from "react";
 import {CatalogItem} from "./CatalogItem";
 import {Preloader} from "../common/Preloader";
-import {Button, Grid} from "@material-ui/core";
+import {Button, Container, Grid} from "@material-ui/core";
 
 const Catalog = () => {
     const auth = useContext(AuthContext)
@@ -34,8 +34,8 @@ const Catalog = () => {
         return <Preloader/>
     }
     return (
-        <div className="container">
-            <h2> {id ? "Мои объявления" : "Каталог"}</h2>
+        <Container>
+            <h2 align="center"> {id ? "Мои объявления" : "Каталог"}</h2>
             <Grid container spacing={3}>
                 {catalogAdItems}
             </Grid>
@@ -43,7 +43,7 @@ const Catalog = () => {
             <Button component={RouterLink} to="/createnewad" variant="contained" color="primary" size="large">
                 Добавить
             </Button>}
-        </div>
+        </Container>
     )
 }
 

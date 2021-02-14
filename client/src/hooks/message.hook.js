@@ -1,9 +1,14 @@
-import {useCallback} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export const useMessage = () => {
-    return useCallback((text) => {
-        if (window.M && text) {
-            window.M.toast({html:text})
+    const [message, setMessage] = useState(null)
+    useEffect(()=>{
+        const addMessage = (text) => {
+            console.log(text)
+            setMessage(text)
+            console.log(message)
         }
-    }, [])
+    })
+
+    return message
 }
